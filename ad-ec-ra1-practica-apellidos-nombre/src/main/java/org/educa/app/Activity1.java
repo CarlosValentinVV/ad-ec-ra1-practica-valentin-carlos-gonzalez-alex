@@ -21,6 +21,5 @@ public class Activity1 {
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
