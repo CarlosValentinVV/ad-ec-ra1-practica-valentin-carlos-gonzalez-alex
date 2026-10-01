@@ -16,6 +16,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.educa.dao.ImplProductoDAO;
+import org.educa.dao.ProductoDAO;
+
 /**
  * Esta clase controla el apartado lógico del control del XML
  * NO GUARDA DATOS
@@ -42,6 +45,16 @@ public class ProductoService {
 //            System.err.println(e.getMessage());
 //        }
         /*TODO LO DE ARRIBA HAY QUE PONERLO EN EL DAO*/
+        ProductoDAO dao = new ImplProductoDAO();
+
+        JAXBContext contextoProductos =
+                dao.crearContexto(Productos.class);
+
+        Unmarshaller unmarshaller =
+                dao.crearDeserializador(contextoProductos);
+
+        return null;
+    }
 //        Productos productos = (Productos) unmarshaller.unmarshal(new File(fileXml));
 //        List<ProductoEntity> vehiculos = new ArrayList<>();
 //        for (Producto producto : productos.getProducto()) {
@@ -52,8 +65,7 @@ public class ProductoService {
 //            productoEntity.setProfit(productoEntity.getPrecioFinal().subtract(productoEntity.getCost()));
 //            vehiculos.add(productoEntity);
 //        }
-        return null;
-    }
+
 
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
         //TODO: Implementar

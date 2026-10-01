@@ -1,16 +1,25 @@
 package org.educa.dao;
 
 import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
-public class ImplProductoDAO implements ProductoDAO{
+public class ImplProductoDAO implements ProductoDAO {
+
     @Override
     public JAXBContext crearContexto(Class clase) {
-        return null;
+        try {
+            return JAXBContext.newInstance(clase);
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Unmarshaller crearDeserializador(JAXBContext contexto) {
-        return null;
+        try {
+            return contexto.createUnmarshaller();
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
     }
-}
