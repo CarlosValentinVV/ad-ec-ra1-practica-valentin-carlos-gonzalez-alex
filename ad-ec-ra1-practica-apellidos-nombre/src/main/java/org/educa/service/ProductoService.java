@@ -16,8 +16,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Es el espacio lógico para el tratamiento del xml*/
+
 public class ProductoService {
 
+    /*Es la lectura del fichero*/
     public List<ProductoEntity> readFile(String fileXml) throws JAXBException {
 //        JAXBContext contextoProductos = JAXBContext.newInstance(Productos.class);
 //        Unmarshaller unmarshaller = contextoProductos.createUnmarshaller();
