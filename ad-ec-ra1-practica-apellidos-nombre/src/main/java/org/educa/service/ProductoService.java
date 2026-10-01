@@ -16,11 +16,23 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Es el espacio lógico para el tratamiento del xml*/
+/**
+ * Esta clase controla el apartado lógico del control del XML
+ * NO GUARDA DATOS
+ *
+ * @author Carlos Valentin Santamaria
+ * @version 1.0
+ */
 
 public class ProductoService {
 
-    /*Es la lectura del fichero*/
+    /**
+     * Este método lee el fichero y conectándose con el DAO proporciona una respuesta en forma de lista
+     *
+     * @author Carlos Valentin Santamaria
+     * @version 1.0
+     */
+
     public List<ProductoEntity> readFile(String fileXml) throws JAXBException {
 //        JAXBContext contextoProductos = JAXBContext.newInstance(Productos.class);
 //        Unmarshaller unmarshaller = contextoProductos.createUnmarshaller();
