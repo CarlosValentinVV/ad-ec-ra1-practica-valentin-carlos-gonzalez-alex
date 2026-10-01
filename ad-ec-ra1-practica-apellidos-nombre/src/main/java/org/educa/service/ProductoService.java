@@ -27,17 +27,17 @@ public class ProductoService {
 //            System.err.println(e.getMessage());
 //        }
         /*TODO LO DE ARRIBA HAY QUE PONERLO EN EL DAO*/
-        Productos productos = (Productos) unmarshaller.unmarshal(new File(fileXml));
-        List<ProductoEntity> vehiculos = new ArrayList<>();
-        for (Producto producto : productos.getProducto()) {
-            ProductoEntity productoEntity = new ProductoEntity();
-            productoEntity.setProducto(producto);
-            productoEntity.setPrecioFinal(producto.getPrecio().subtract(producto.getDescuento()));
-            productoEntity.setCost(producto.getCostes().getCostesAlmacenaje().add(producto.getCostes().getCostesEnvio()));
-            productoEntity.setProfit(productoEntity.getPrecioFinal().subtract(productoEntity.getCost()));
-            vehiculos.add(productoEntity);
-        }
-        return vehiculos;
+//        Productos productos = (Productos) unmarshaller.unmarshal(new File(fileXml));
+//        List<ProductoEntity> vehiculos = new ArrayList<>();
+//        for (Producto producto : productos.getProducto()) {
+//            ProductoEntity productoEntity = new ProductoEntity();
+//            productoEntity.setProducto(producto);
+//            productoEntity.setPrecioFinal(producto.getPrecio().subtract(producto.getDescuento()));
+//            productoEntity.setCost(producto.getCostes().getCostesAlmacenaje().add(producto.getCostes().getCostesEnvio()));
+//            productoEntity.setProfit(productoEntity.getPrecioFinal().subtract(productoEntity.getCost()));
+//            vehiculos.add(productoEntity);
+//        }
+        return null;
     }
 
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
