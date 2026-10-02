@@ -61,8 +61,7 @@ public class ImplProductoDAO implements ProductoDAO {
     @Override
     public void rellenarFichero(String path, String fileXml) throws IOException, JAXBException {
         //Falta configuración de los nombres
-        File f = new File(fileXml);
-        FileWriter fileWriter = new FileWriter(new File(path));
+        FileWriter fileWriter = new FileWriter(path);
         fileWriter.write(productoService.readFile(fileXml).toString());
         fileWriter.close();
     }
