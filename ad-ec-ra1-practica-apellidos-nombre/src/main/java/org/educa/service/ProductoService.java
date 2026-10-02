@@ -37,21 +37,14 @@ public class ProductoService {
      */
 
     public List<ProductoEntity> readFile(String fileXml) throws JAXBException {
-//        JAXBContext contextoProductos = JAXBContext.newInstance(Productos.class);
-//        Unmarshaller unmarshaller = contextoProductos.createUnmarshaller();
-//        try {
-//            unmarshaller.setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(new File("ad-ec-ra1-practica-apellidos-nombre/target/classes/xsd/inventario_junio2026.xsd")));
-//        } catch (SAXException e) {
-//            System.err.println(e.getMessage());
-//        }
         /*TODO LO DE ARRIBA HAY QUE PONERLO EN EL DAO*/
         ProductoDAO dao = new ImplProductoDAO();
 
-        JAXBContext contextoProductos =
-                dao.crearContexto(Productos.class);
+        JAXBContext contextoProductos = dao.crearContexto(Productos.class);
 
-        Unmarshaller unmarshaller =
-                dao.crearDeserializador(contextoProductos);
+        Unmarshaller unmarshaller = dao.crearDeserializador(contextoProductos);
+
+        Productos productos = (Productos) unmarshaller.unmarshal(new File(fileXml));
 
         return null;
     }
