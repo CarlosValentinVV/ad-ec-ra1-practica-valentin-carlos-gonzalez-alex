@@ -1,8 +1,11 @@
 package org.educa.dao;
 
+import generated.Productos;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
+
+import java.io.File;
 
 public class ImplProductoDAO implements ProductoDAO {
 
@@ -23,3 +26,13 @@ public class ImplProductoDAO implements ProductoDAO {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Productos crearWhile(Unmarshaller deserializador, String path) {
+        try {
+            return (Productos) deserializador.unmarshal(new File(path));
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}

@@ -44,20 +44,19 @@ public class ProductoService {
 
         Unmarshaller unmarshaller = dao.crearDeserializador(contextoProductos);
 
-        Productos productos = (Productos) unmarshaller.unmarshal(new File(fileXml));
+        Productos productos = dao.crearWhile(unmarshaller,fileXml);
+        List<ProductoEntity> productoEntityList = new ArrayList<>();
 
-        return null;
+        for(Producto producto : productos.getProducto()){
+            ProductoEntity productoEntity = new ProductoEntity();
+            productoEntity.setProducto(producto);
+            productoEntity.setPrecioFinal(producto.getPrecio().subtract(producto.getDescuento()));
+            productoEntity.setCost(producto.getCostes().getCostesAlmacenaje().add(producto.getCostes().getCostesEnvio()));
+            productoEntity.setProfit(productoEntity.getPrecioFinal().subtract(productoEntity.getCost()));
+            productoEntityList.add(productoEntity);
+        }
+        return productoEntityList;
     }
-//        Productos productos = (Productos) unmarshaller.unmarshal(new File(fileXml));
-//        List<ProductoEntity> vehiculos = new ArrayList<>();
-//        for (Producto producto : productos.getProducto()) {
-//            ProductoEntity productoEntity = new ProductoEntity();
-//            productoEntity.setProducto(producto);
-//            productoEntity.setPrecioFinal(producto.getPrecio().subtract(producto.getDescuento()));
-//            productoEntity.setCost(producto.getCostes().getCostesAlmacenaje().add(producto.getCostes().getCostesEnvio()));
-//            productoEntity.setProfit(productoEntity.getPrecioFinal().subtract(productoEntity.getCost()));
-//            vehiculos.add(productoEntity);
-//        }
 
 
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
