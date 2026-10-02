@@ -6,11 +6,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import org.educa.entity.ProductoEntity;
-import org.xml.sax.SAXException;
 
-import javax.xml.XMLConstants;
-import javax.xml.validation.SchemaFactory;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -28,23 +24,20 @@ import org.educa.dao.ProductoDAO;
  */
 
 public class ProductoService {
-
     /**
-     * Este método lee el fichero y conectándose con el DAO proporciona una respuesta en forma de lista
-     *
-     * @author Carlos Valentin Santamaria
-     * @version 1.0
+     * @param dao Es la implementación de la clase DAO para acceder al service
      */
-
+    ProductoDAO dao = new ImplProductoDAO();
+    /**
+     *
+     * Este método lee el fichero y conectándose con el DAO proporciona una respuesta en forma de lista
+     * @param fileXml
+     * @return {@link List} Lista de productos {@link ProductoEntity} Entities
+     * @throws JAXBException Excecpción de JAXB para el manejo de errores
+     */
     public List<ProductoEntity> readFile(String fileXml) throws JAXBException {
-        /*TODO LO DE ARRIBA HAY QUE PONERLO EN EL DAO*/
-        ProductoDAO dao = new ImplProductoDAO();
 
-        JAXBContext contextoProductos = dao.crearContexto(Productos.class);
-
-        Unmarshaller unmarshaller = dao.crearDeserializador(contextoProductos);
-
-        Productos productos = dao.crearWhile(unmarshaller,fileXml);
+        Productos productos = dao.crearObjeto(fileXml);
         List<ProductoEntity> productoEntityList = new ArrayList<>();
 
         for(Producto producto : productos.getProducto()){
