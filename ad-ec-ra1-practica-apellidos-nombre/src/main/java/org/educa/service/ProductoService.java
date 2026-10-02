@@ -2,18 +2,15 @@ package org.educa.service;
 
 import generated.Producto;
 import generated.Productos;
-import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
+import org.educa.dao.ImplProductoDAO;
+import org.educa.dao.ProductoDAO;
 import org.educa.entity.ProductoEntity;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.educa.dao.ImplProductoDAO;
-import org.educa.dao.ProductoDAO;
 
 /**
  * Esta clase controla el apartado lógico del control del XML
