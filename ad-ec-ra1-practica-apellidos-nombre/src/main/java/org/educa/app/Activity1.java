@@ -7,7 +7,7 @@ import org.educa.service.ProductoService;
 import java.util.List;
 
 public class Activity1 {
-    private static final String FILE_XML = "ad-ec-ra1-practica-apellidos-nombre/target/classes/xml/inventario_junio2026.xml";
+    private static final String FILE_XML = "src/main/resources/xml/inventario_junio2026.xml";
 
     public static void main(String[] args) {
         //Leer el fichero XML
