@@ -5,6 +5,9 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
+import java.io.IOException;
+import java.text.ParseException;
+
 /**
  * Esta es la interfaz que se implementa en la clase {@link ImplProductoDAO}
  */
@@ -23,4 +26,5 @@ public interface ProductoDAO {
      */
     Unmarshaller crearDeserializador(JAXBContext contexto) throws JAXBException;
     Productos crearObjeto(String path) throws JAXBException;
+    void exportarXML(String path, String fileXml) throws JAXBException, IOException, ParseException;
 }
