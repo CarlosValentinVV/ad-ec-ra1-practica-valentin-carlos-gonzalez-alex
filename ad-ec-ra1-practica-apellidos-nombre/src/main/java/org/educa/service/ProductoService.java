@@ -50,8 +50,7 @@ public class ProductoService {
 
 
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
-        //TODO: Implementar
-
+        dao.rellenarFichero(path, fileXml);
     }
 
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {

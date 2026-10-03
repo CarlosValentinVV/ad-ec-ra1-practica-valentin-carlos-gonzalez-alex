@@ -9,13 +9,13 @@ import org.educa.service.ProductoService;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * Esta clase implementa la interfaz {@link ProductoDAO}
  * Esta clase sirve para crear los elementos correspondientes para poder recoger la información en el {@link org.educa.service.ProductoService}
  */
 public class ImplProductoDAO implements ProductoDAO {
-    ProductoService productoService = new ProductoService();
 
     /**
      * Crea el contexto para crear el deserializador después
@@ -52,7 +52,7 @@ public class ImplProductoDAO implements ProductoDAO {
     }
 
     /**
-     * Esto rellena el fichero xml con el metodo {@link ProductoService}
+     * Esto rellena el fichero de texto con el metodo {@link ProductoService}
      * @param path La ruta donde hay que crear el fichero y escribirlo
      * @param fileXml La ruta que hay que leer
      * @throws IOException Lanzamos la excepción hacia arriba para que la capture el main
@@ -60,9 +60,13 @@ public class ImplProductoDAO implements ProductoDAO {
      */
     @Override
     public void rellenarFichero(String path, String fileXml) throws IOException, JAXBException {
-        //Falta configuración de los nombres
-        FileWriter fileWriter = new FileWriter(path);
-        fileWriter.write(productoService.readFile(fileXml).toString());
+        //result_<Mes y año tal y como aparece en el nombre del fichero XML>
+        String mes = LocalDate.now().getMonth().toString();
+        int año = LocalDate.now().getYear();
+        File f = new File(fileXml);
+        FileWriter fileWriter = new FileWriter(new File(path,"result_" + mes + año + ".txt"));
+        //Falta el mensaje
+        fileWriter.write("");
         fileWriter.close();
     }
 }
