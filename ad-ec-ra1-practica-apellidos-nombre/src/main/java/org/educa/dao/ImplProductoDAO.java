@@ -58,12 +58,37 @@ public class ImplProductoDAO implements ProductoDAO {
     public void exportarXML(String path, String fileXml) throws JAXBException, IOException, ParseException {
         Productos productos = crearObjeto(fileXml);
 
+        // Sacar el mes y año del nombre del XML: inventario_junio2026.xml -> junio2026
+        File xml = new File(fileXml);
+        String nombre = xml.getName();
+        int posicionPunto = nombre.indexOf(".");
+        String nombreSinExtension = nombre.substring(0, posicionPunto);
+        String[] partes = nombreSinExtension.split("_");
+        String fecha = partes[1];
+
         Workbook wb = new XSSFWorkbook();
         Sheet sh = wb.createSheet();
 
-        int contador = 0;
+        // Estilo en negrita para la cabecera
+        Font negrita = wb.createFont();
+        negrita.setBold(true);
+        CellStyle estiloCabecera = wb.createCellStyle();
+        estiloCabecera.setFont(negrita);
 
-        for (Producto producto : productos.getProducto()){
+        // Fila 0: títulos de las columnas
+        String[] titulos = {"Codigo", "Número de Serie", "Precio", "Descuento",
+                "Precio Final", "Costes Envío", "Costes Almacenaje", "Beneficio"};
+        Row cabecera = sh.createRow(0);
+        for (int i = 0; i < titulos.length; i++) {
+            Cell celda = cabecera.createCell(i);
+            celda.setCellValue(titulos[i]);
+            celda.setCellStyle(estiloCabecera);
+        }
+
+        // Los datos empiezan en la fila 1
+        int contador = 1;
+
+        for (Producto producto : productos.getProducto()) {
             Row row = sh.createRow(contador);
             contador++;
             row.createCell(0).setCellValue(producto.getCodigo());
@@ -71,12 +96,13 @@ public class ImplProductoDAO implements ProductoDAO {
             row.createCell(2).setCellValue(producto.getPrecio().toString());
             row.createCell(3).setCellValue(producto.getDescuento().toString());
             BigDecimal precioFinal = producto.getPrecio().add(producto.getCostes().getCostesAlmacenaje().add(producto.getCostes().getCostesEnvio())).subtract(producto.getDescuento());
-            row.createCell(4).setCellValue(String.valueOf(String.valueOf(precioFinal)));
+            row.createCell(4).setCellValue(String.valueOf(precioFinal));
             row.createCell(5).setCellValue(producto.getCostes().getCostesEnvio().toString());
             row.createCell(6).setCellValue(producto.getCostes().getCostesAlmacenaje().toString());
             row.createCell(7).setCellValue(String.valueOf(precioFinal.subtract(producto.getCostes().getCostesAlmacenaje().subtract(producto.getCostes().getCostesEnvio()))));
         }
-        FileOutputStream out = new FileOutputStream(new File(path,"resultado.xlsx"));
+
+        FileOutputStream out = new FileOutputStream(new File(path, "export_" + fecha + ".xlsx"));
         wb.write(out);
         out.close();
         wb.close();
