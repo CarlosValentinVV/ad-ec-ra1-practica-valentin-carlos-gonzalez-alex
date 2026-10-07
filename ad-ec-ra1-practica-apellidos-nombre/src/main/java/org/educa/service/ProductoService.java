@@ -61,19 +61,20 @@ public class ProductoService {
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
         List<ProductoEntity> productos = readFile(fileXml);
 
-        BigDecimal beneficioTotal = productos.stream()
-                .map(ProductoEntity::getProfit)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal beneficioTotal = BigDecimal.ZERO;
+        for (ProductoEntity productoEntity : productos) {
+            beneficioTotal = beneficioTotal.add(productoEntity.getProfit());
+        }
 
         File xml = new File(fileXml);
         String nombreSinExtension = xml.getName().replaceFirst("\\.xml$", "");
         String fecha = nombreSinExtension.substring(nombreSinExtension.indexOf('_') + 1);
 
-        String contenido = "Fecha: " + fecha + System.lineSeparator()
-                + "NumeroDeProductos: " + productos.size() + System.lineSeparator()
-                + "BeneficioTotal: " + beneficioTotal + System.lineSeparator()
-                + "Ruta del fichero: " + xml.getAbsolutePath() + System.lineSeparator()
-                + "Nombre del fichero: " + nombreSinExtension + System.lineSeparator()
+        String contenido = "Fecha: " + fecha + "\n"
+                + "NumeroDeProductos: " + productos.size() + "\n"
+                + "BeneficioTotal: " + beneficioTotal + "\n"
+                + "Ruta del fichero: " + xml.getAbsolutePath() + "\n"
+                + "Nombre del fichero: " + nombreSinExtension + "\n"
                 + "Tamaño del fichero: " + xml.length() + " bytes";
 
         dao.rellenarFichero(path, "result_" + fecha + ".txt", contenido);
