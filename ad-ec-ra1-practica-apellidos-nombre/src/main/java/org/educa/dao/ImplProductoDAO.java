@@ -7,6 +7,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -75,5 +76,11 @@ public class ImplProductoDAO implements ProductoDAO {
             row.createCell(6).setCellValue(producto.getCostes().getCostesAlmacenaje().toString());
             row.createCell(7).setCellValue(String.valueOf(precioFinal.subtract(producto.getCostes().getCostesAlmacenaje().subtract(producto.getCostes().getCostesEnvio()))));
         }
+        FileOutputStream out = new FileOutputStream("resultado.xlsx");
+        wb.write(out);
+        out.close();
+        wb.close();
+
+        System.out.println("Excel exportado.");
     }
 }
