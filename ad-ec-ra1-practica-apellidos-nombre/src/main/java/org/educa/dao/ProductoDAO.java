@@ -35,5 +35,5 @@ public interface ProductoDAO {
      */
     Productos crearObjeto(String path) throws JAXBException;
 
-    void rellenarFichero(String path, String fileXml) throws IOException, JAXBException;
+    void rellenarFichero(String path, String nombreFichero, String contenido) throws IOException;
 }
