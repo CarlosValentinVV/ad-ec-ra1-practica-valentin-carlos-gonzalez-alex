@@ -55,6 +55,6 @@ public class ProductoService {
     }
 
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
-        //TODO: Implementar
+        dao.exportarXML(path,fileXml);
     }
 }

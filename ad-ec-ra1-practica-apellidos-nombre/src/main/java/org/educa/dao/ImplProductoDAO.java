@@ -76,7 +76,7 @@ public class ImplProductoDAO implements ProductoDAO {
             row.createCell(6).setCellValue(producto.getCostes().getCostesAlmacenaje().toString());
             row.createCell(7).setCellValue(String.valueOf(precioFinal.subtract(producto.getCostes().getCostesAlmacenaje().subtract(producto.getCostes().getCostesEnvio()))));
         }
-        FileOutputStream out = new FileOutputStream("resultado.xlsx");
+        FileOutputStream out = new FileOutputStream(new File(path,"resultado.xlsx"));
         wb.write(out);
         out.close();
         wb.close();
