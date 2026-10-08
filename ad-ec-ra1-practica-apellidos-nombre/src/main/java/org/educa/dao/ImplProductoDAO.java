@@ -1,5 +1,6 @@
 package org.educa.dao;
 
+import generated.Producto;
 import generated.Productos;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
