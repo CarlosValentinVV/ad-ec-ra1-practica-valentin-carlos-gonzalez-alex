@@ -42,7 +42,6 @@ public interface ProductoDAO {
      * @throws JAXBException Mandamos para arriba la excepcion JAXB para arriba
      * @throws IOException Mandamos para arriba la excepcion IO para arriba
      */
-    void exportarXML(String path, String fileXml) throws JAXBException, IOException, ParseException;
-}
+    void exportarXML(String path, String fileXml) throws JAXBException, IOException;
     void rellenarFichero(String path, String nombreFichero, String contenido) throws IOException;
 }

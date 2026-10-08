@@ -8,9 +8,9 @@ import jakarta.xml.bind.Unmarshaller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -114,6 +114,9 @@ public class ImplProductoDAO implements ProductoDAO {
         wb.close();
 
         System.out.println("Excel exportado.");
+    }
+
+    /**
      * Escribe el contenido recibido en un fichero de texto
      * @param path Carpeta donde se crea el fichero
      * @param nombreFichero Nombre del fichero a crear
@@ -122,7 +125,6 @@ public class ImplProductoDAO implements ProductoDAO {
      */
     @Override
     public void rellenarFichero(String path, String nombreFichero, String contenido) throws IOException {
-        Files.createDirectories(Path.of(path));
         try (FileWriter writer = new FileWriter(new File(path, nombreFichero))) {
             writer.write(contenido);
         }
