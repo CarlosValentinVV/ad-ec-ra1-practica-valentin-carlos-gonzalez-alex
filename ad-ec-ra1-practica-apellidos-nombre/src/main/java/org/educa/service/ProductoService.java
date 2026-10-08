@@ -50,6 +50,13 @@ public class ProductoService {
         return productoEntityList;
     }
 
+    /**
+     * Calcula el contenido a exportar del fichero xml y se conecta con el DAO
+     * @param path Ruta a exportar
+     * @param fileXml Ruta del xml
+     * @throws JAXBException Lanza para arriba la excepción del JAXB
+     * @throws IOException Lanza para arriba la excepción del IO
+     */
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
         List<ProductoEntity> productos = readFile(fileXml);
 
@@ -75,7 +82,15 @@ public class ProductoService {
         dao.rellenarFichero(path, "result_" + fecha + ".txt", contenido);
     }
 
+    /**
+     * Se conecta con el DAO para rellenar el fichero Excel
+     * @param path Ruta a exportar
+     * @param fileXml Ruta del xml
+     * @throws JAXBException Lanza para arriba la excepción del JAXB
+     * @throws IOException Lanza para arriba la excepción del IO
+     * @throws ParseException Lanza para arriba la excepciñon del Parse
+     */
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
-        //TODO: Implementar
+        dao.exportarXML(path,fileXml);
     }
 }
