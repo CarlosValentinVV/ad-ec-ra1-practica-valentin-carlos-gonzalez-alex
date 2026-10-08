@@ -54,8 +54,15 @@ public class ImplProductoDAO implements ProductoDAO {
         return (Productos) crearDeserializador(crearContexto(Productos.class)).unmarshal(new File(path));
     }
 
+    /**
+     * Exporta el fichero Excel en formato .xlsx en base al fichero xml
+     * @param path La ruta donde se guardara el fichero
+     * @param fileXml La ruta donde se encuentra el fichero xml
+     * @throws JAXBException Mandamos para arriba la excepcion JAXB para arriba
+     * @throws IOException Mandamos para arriba la excepcion IO para arriba
+     */
     @Override
-    public void exportarXML(String path, String fileXml) throws JAXBException, IOException, ParseException {
+    public void exportarXML(String path, String fileXml) throws JAXBException, IOException {
         Productos productos = crearObjeto(fileXml);
 
         // Sacar el mes y año del nombre del XML: inventario_junio2026.xml -> junio2026
