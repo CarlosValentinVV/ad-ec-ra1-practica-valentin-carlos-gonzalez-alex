@@ -35,5 +35,14 @@ public interface ProductoDAO {
      */
     Productos crearObjeto(String path) throws JAXBException;
 
+    /**
+     * Este método no devuelve nada pero exporta el archivo excel en base al XML
+     * @param path La ruta donde se guardara el fichero
+     * @param fileXml La ruta donde se encuentra el fichero xml
+     * @throws JAXBException Mandamos para arriba la excepcion JAXB para arriba
+     * @throws IOException Mandamos para arriba la excepcion IO para arriba
+     */
+    void exportarXML(String path, String fileXml) throws JAXBException, IOException, ParseException;
+}
     void rellenarFichero(String path, String nombreFichero, String contenido) throws IOException;
 }
