@@ -7,7 +7,9 @@ import org.educa.dao.ImplProductoDAO;
 import org.educa.dao.ProductoDAO;
 import org.educa.entity.ProductoEntity;
 
+import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,8 @@ public class ProductoService {
      * @param dao Es la implementación de la clase DAO para acceder al service
      */
     ProductoDAO dao = new ImplProductoDAO();
+
     /**
-     *
      * Este método lee el fichero y conectándose con el DAO proporciona una respuesta en forma de lista
      * @param fileXml
      * @return {@link List} Lista de productos {@link ProductoEntity} Entities
@@ -48,10 +50,29 @@ public class ProductoService {
         return productoEntityList;
     }
 
-
     public void exportSummary(String path, String fileXml) throws JAXBException, IOException {
-        //TODO: Implementar
+        List<ProductoEntity> productos = readFile(fileXml);
 
+        BigDecimal beneficioTotal = BigDecimal.ZERO;
+        for (ProductoEntity productoEntity : productos) {
+            beneficioTotal = beneficioTotal.add(productoEntity.getProfit());
+        }
+
+        File xml = new File(fileXml);
+        String nombre = xml.getName();
+        int posicionPunto = nombre.indexOf(".");
+        String nombreSinExtension = nombre.substring(0, posicionPunto);
+        String[] partes = nombreSinExtension.split("_");
+        String fecha = partes[1];
+
+        String contenido = "Fecha: " + fecha + "\n"
+                + "NumeroDeProductos: " + productos.size() + "\n"
+                + "BeneficioTotal: " + beneficioTotal + "\n"
+                + "Ruta del fichero: " + xml.getAbsolutePath() + "\n"
+                + "Nombre del fichero: " + nombreSinExtension + "\n"
+                + "Tamaño del fichero: " + xml.length() + " bytes";
+
+        dao.rellenarFichero(path, "result_" + fecha + ".txt", contenido);
     }
 
     public void exportExcel(String path, String fileXml) throws JAXBException, IOException, ParseException {
